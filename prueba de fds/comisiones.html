@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Comisiones | Jurassic World</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Cinzel+Decorative:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="comisiones.css"/>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+  <!-- ═══════ CLICK GATE (ensures audio autoplay) ═══════ -->
+  <div id="click-gate" role="dialog" aria-label="Iniciar experiencia Jurassic World" aria-modal="true">
+    <div class="gate-bg" aria-hidden="true"></div>
+    <div class="gate-content">
+      <div class="gate-dna" aria-hidden="true">🧬</div>
+      <p class="gate-corp" aria-hidden="true">ESCOGE</p>
+      <h2 class="gate-title">Jurassic World</h2>
+      <p class="gate-sub">Operaciones del Parque · Isla Nublar</p>
+      <div class="gate-divider" aria-hidden="true"></div>
+      <button class="gate-btn" id="gate-enter-btn" autofocus>
+        <span class="gate-btn-icon" aria-hidden="true">▶</span>
+        <span>Entrar al Parque</span>
+      </button>
+      <p class="gate-note" aria-hidden="true">🔊 Activa el volumen para la experiencia completa</p>
+    </div>
+  </div>
+
+  <!-- ═══════ INTRO SEQUENCE (starts paused; gate dismissal triggers it) ═══════ -->
+  <div id="intro" class="intro--paused" aria-hidden="true">
+    <div class="intro-bg"></div>
+    <div id="claw-wrap">
+      <svg viewBox="0 0 300 480" xmlns="http://www.w3.org/2000/svg" width="100%" height="auto" aria-hidden="true" focusable="false">
+        <defs>
+          <filter id="dshadow"><feDropShadow dx="5" dy="10" stdDeviation="10" flood-color="#000" flood-opacity=".9"/></filter>
+          <radialGradient id="arm-g" cx="40%" cy="30%" r="60%">
+            <stop offset="0%" stop-color="#2e1a08"/>
+            <stop offset="100%" stop-color="#0d0704"/>
+          </radialGradient>
+        </defs>
+        <ellipse cx="265" cy="35" rx="110" ry="75" fill="#0d0704" opacity=".95" filter="url(#dshadow)"/>
+        <path d="M248,0 Q235,55 218,115 Q208,148 198,178" stroke="url(#arm-g)" stroke-width="58" stroke-linecap="round" fill="none" filter="url(#dshadow)"/>
+        <path d="M198,178 Q190,202 184,224 Q179,240 175,255" stroke="url(#arm-g)" stroke-width="44" stroke-linecap="round" fill="none"/>
+        <ellipse cx="168" cy="265" rx="27" ry="22" fill="#0e0804" transform="rotate(-25,168,265)"/>
+        <path d="M152,258 C134,273 112,300 86,332 C64,358 42,386 20,416 C8,432 0,450 -4,468 C-8,480 3,490 15,483 C29,476 48,455 67,430 C90,400 112,368 134,335 C153,305 166,276 170,259 Z" fill="#0c0603" filter="url(#dshadow)"/>
+        <path d="M152,258 C132,276 108,306 82,340 C60,368 38,398 16,430" stroke="#3d2212" stroke-width="1.5" fill="none" opacity=".6"/>
+        <path d="M165,256 C151,271 137,296 118,327 C101,352 85,378 70,404 C59,422 51,439 46,455 C41,469 51,478 61,474 C73,469 85,452 98,432 C113,410 127,382 140,352 C153,324 161,295 166,259 Z" fill="#0c0603" filter="url(#dshadow)"/>
+        <path d="M165,256 C150,273 134,302 116,334 C100,362 85,390 71,418" stroke="#3d2212" stroke-width="1.5" fill="none" opacity=".6"/>
+        <path d="M177,253 C169,267 162,291 150,318 C140,340 131,360 122,380 C114,394 109,408 107,420 C103,432 111,440 121,436 C131,431 140,416 149,398 C160,377 167,352 172,324 C177,302 178,278 179,256 Z" fill="#0c0603" filter="url(#dshadow)"/>
+        <path d="M235,10 Q222,65 205,125 Q195,158 185,188" stroke="#4a2a14" stroke-width="2" fill="none" stroke-dasharray="7,14" opacity=".4"/>
+        <circle cx="178" cy="256" r="4"   fill="#1e1008" opacity=".8"/>
+        <circle cx="166" cy="259" r="3.5" fill="#1e1008" opacity=".8"/>
+        <circle cx="153" cy="261" r="3"   fill="#1e1008" opacity=".7"/>
+      </svg>
+    </div>
+
+    <svg id="scratch-svg" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <defs>
+        <filter id="sglow"><feGaussianBlur stdDeviation="1.5" result="b"/><feComposite in="SourceGraphic" in2="b" operator="over"/></filter>
+      </defs>
+      <path class="scratch s1" pathLength="1" d="M38,0 C36,18 34,38 31,58 C29,72 27,86 24,100"/>
+      <path class="scratch s2" pathLength="1" d="M53,0 C51,18 49,38 46,58 C44,72 42,86 39,100"/>
+      <path class="scratch s3" pathLength="1" d="M67,0 C65,18 63,38 60,58 C58,72 56,86 53,100"/>
+    </svg>
+
+    <div id="intro-roar">¡ROAAR!</div>
+    <div class="piece p1"></div>
+    <div class="piece p2"></div>
+    <div class="piece p3"></div>
+    <div class="piece p4"></div>
+  </div>
+
+  <!-- ═══════ ATMOSPHERIC ═══════ -->
+  <div id="rain"      aria-hidden="true"></div>
+  <div id="lightning" aria-hidden="true"></div>
+  <div class="fog-layer" aria-hidden="true"></div>
+  <div class="fog-layer" aria-hidden="true"></div>
+  <div id="scanlines" aria-hidden="true"></div>
+
+  <!-- ═══════ HEADER ═══════ -->
+  <header>
+    <div class="logo-badge">
+      <span aria-hidden="true">🧬</span>
+      ESCOGE &nbsp;•&nbsp; Operaciones del Parque
+      <span aria-hidden="true">🧬</span>
+    </div>
+    <h1>Comisiones</h1>
+    <p class="h1-sub">Equipo de Operaciones</p>
+    <div class="header-divider" aria-hidden="true">
+      <div class="hd-line"></div>
+      <span class="hd-icon">🦕</span>
+      <div class="hd-line"></div>
+    </div>
+  </header>
+
+  <div class="fence-band" aria-hidden="true">
+    <div class="fence-post"></div>
+    <div class="fence-wire"></div>
+    <span class="fence-text">⚡ ZONA DE ALTA SEGURIDAD — SOLO PERSONAL AUTORIZADO ⚡</span>
+    <div class="fence-wire"></div>
+    <div class="fence-post"></div>
+  </div>
+  <div class="warning-tape" aria-hidden="true"></div>
+
+  <!-- ═══════ MAIN ═══════ -->
+  <main id="main-content">
+    <h2 class="section-title">Personal de Comando</h2>
+    <div class="grid" id="grid" role="list" aria-label="Comisiones del parque"></div>
+  </main>
+
+  <div class="warning-tape" aria-hidden="true"></div>
+  <div class="fence-band" aria-hidden="true">
+    <div class="fence-post"></div>
+    <div class="fence-wire"></div>
+    <span class="fence-text">⚡ ESCOGE OPERATIONS — ISLA NUBLAR ⚡</span>
+    <div class="fence-wire"></div>
+    <div class="fence-post"></div>
+  </div>
+
+  <!-- ═══════ FOOTER ═══════ -->
+  <footer>
+    <blockquote class="footer-quote">"La vida siempre encuentra la manera..."</blockquote>
+    <cite class="footer-attr">— Dr. Tiffany Alfaro · ESCOGE Operations</cite>
+    <div class="footer-dna" aria-hidden="true">🧬</div>
+  </footer>
+
+  <!-- ═══════ MODAL ═══════ -->
+  <div id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="m-name" aria-hidden="true">
+    <div id="modal">
+      <div class="modal-stripe" aria-hidden="true"></div>
+      <div class="modal-header">
+        <span class="modal-badge" id="m-badge" aria-hidden="true"></span>
+        <div class="modal-title-area">
+          <p class="modal-label" aria-hidden="true">⚠ Dossier Clasificado — ESCOGE.</p>
+          <h2 class="modal-name" id="m-name"></h2>
+          <p class="modal-species" id="m-species"></p>
+        </div>
+        <button class="modal-close" id="modal-close-btn" aria-label="Cerrar información de comisión">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc" id="m-desc"></p>
+        <div class="modal-sep" aria-hidden="true"></div>
+        <h3 class="modal-members-title">Personal Asignado</h3>
+        <div class="members-grid" id="m-members"></div>
+      </div>
+    </div>
+  </div>
+
+  <!--
+    ═══════ AUDIO ═══════
+    Coloca tu archivo de rugido en: audio/roar.mp3
+    Fuentes recomendadas (libres): freesound.org, pixabay.com/sound-effects
+    Formatos: MP3 para Chrome/Firefox/Safari, OGG como respaldo (opcional)
+  -->
+  <audio id="roar-audio" preload="auto">
+    <source src="audio/roar.mp3" type="audio/mpeg">
+    <source src="audio/roar.ogg" type="audio/ogg">
+  </audio>
+
+  <script src="comisiones.js"></script>
+</body>
+</html>

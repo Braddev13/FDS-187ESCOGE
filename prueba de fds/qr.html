@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QR · ESCOGE FDS#187</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Cinzel+Decorative:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── TOKENS ── */
+    :root {
+      --amber:      #f5a623;
+      --amber-dim:  #c47d0e;
+      --amber-glow: rgba(245,166,35,.18);
+      --green-neon: #39ff14;
+      --bg:         #050b05;
+      --bg-card:    #0a1a0a;
+      --text:       #e8d5a0;
+      --border:     rgba(245,166,35,.35);
+    }
+
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── BODY ── */
+    body {
+      min-height: 100dvh;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Rajdhani', sans-serif;
+      color: var(--text);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* ── SCANLINES ── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(0,0,0,.08) 3px,
+        rgba(0,0,0,.08) 4px
+      );
+      pointer-events: none;
+      z-index: 99;
+    }
+
+    /* ── GRID BACKGROUND ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(245,166,35,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245,166,35,.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    /* ── WARNING TAPE ── */
+    .tape {
+      position: fixed;
+      left: 0; right: 0;
+      height: 22px;
+      background: repeating-linear-gradient(
+        -45deg,
+        #f5a623 0px, #f5a623 12px,
+        #111 12px, #111 24px
+      );
+      z-index: 10;
+    }
+    .tape.top    { top: 0; }
+    .tape.bottom { bottom: 0; }
+
+    /* ── CARD ── */
+    .qr-card {
+      position: relative;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 44px 52px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      box-shadow:
+        0 0 0 1px rgba(245,166,35,.08),
+        0 0 40px rgba(245,166,35,.12),
+        0 0 80px rgba(245,166,35,.06),
+        inset 0 1px 0 rgba(245,166,35,.12);
+      max-width: 480px;
+      width: calc(100vw - 48px);
+    }
+
+    /* corner brackets */
+    .qr-card::before,
+    .qr-card::after {
+      content: '';
+      position: absolute;
+      width: 24px; height: 24px;
+      border-color: var(--amber);
+      border-style: solid;
+      border-width: 0;
+    }
+    .qr-card::before {
+      top: 10px; left: 10px;
+      border-top-width: 2px;
+      border-left-width: 2px;
+    }
+    .qr-card::after {
+      bottom: 10px; right: 10px;
+      border-bottom-width: 2px;
+      border-right-width: 2px;
+    }
+
+    /* ── LOGO STRIP ── */
+    .logo-strip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      color: var(--amber-dim);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .logo-strip .dot {
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: var(--amber-dim);
+      opacity: .6;
+    }
+
+    /* ── DNA BADGE ── */
+    .dna {
+      font-size: 2.2rem;
+      margin-bottom: 6px;
+      filter: drop-shadow(0 0 12px rgba(245,166,35,.6));
+      animation: pulse-dna 3s ease-in-out infinite;
+    }
+    @keyframes pulse-dna {
+      0%,100% { filter: drop-shadow(0 0 12px rgba(245,166,35,.6)); }
+      50%      { filter: drop-shadow(0 0 24px rgba(245,166,35,.9)); }
+    }
+
+    /* ── TITLE ── */
+    .title-escoge {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.75rem;
+      font-weight: 900;
+      color: var(--amber);
+      letter-spacing: .06em;
+      text-align: center;
+      line-height: 1;
+      text-shadow:
+        0 0 20px rgba(245,166,35,.7),
+        0 0 40px rgba(245,166,35,.35);
+    }
+    .title-fds {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: .35em;
+      color: var(--text);
+      text-align: center;
+      margin-top: 6px;
+      margin-bottom: 28px;
+      opacity: .85;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--amber-dim), transparent);
+      opacity: .5;
+    }
+    .divider-icon { font-size: 1rem; }
+
+    /* ── QR FRAME ── */
+    .qr-frame {
+      position: relative;
+      padding: 16px;
+      background: #fff;
+      border-radius: 4px;
+      box-shadow:
+        0 0 0 1px rgba(245,166,35,.3),
+        0 0 24px rgba(245,166,35,.25),
+        0 0 60px rgba(245,166,35,.12);
+    }
+
+    /* glowing corner tick marks on the QR frame */
+    .qr-frame::before,
+    .qr-frame::after {
+      content: '';
+      position: absolute;
+      width: 18px; height: 18px;
+      border-color: var(--amber);
+      border-style: solid;
+      border-width: 0;
+    }
+    .qr-frame::before {
+      top: -6px; left: -6px;
+      border-top-width: 3px; border-left-width: 3px;
+      box-shadow: -2px -2px 8px rgba(245,166,35,.5);
+    }
+    .qr-frame::after {
+      bottom: -6px; right: -6px;
+      border-bottom-width: 3px; border-right-width: 3px;
+      box-shadow: 2px 2px 8px rgba(245,166,35,.5);
+    }
+
+    .qr-frame img {
+      display: block;
+      width: 220px;
+      height: 220px;
+      image-rendering: pixelated;
+    }
+
+    /* ── URL LABEL ── */
+    .url-label {
+      margin-top: 24px;
+      font-size: .7rem;
+      letter-spacing: .12em;
+      color: var(--amber-dim);
+      text-align: center;
+      font-weight: 600;
+      text-transform: uppercase;
+      opacity: .75;
+      word-break: break-all;
+      max-width: 320px;
+    }
+
+    /* ── BOTTOM LABEL ── */
+    .bottom-strip {
+      margin-top: 28px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .bottom-strip .divider-line { opacity: .3; }
+
+    .scan-label {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .22em;
+      color: var(--amber);
+      text-align: center;
+      text-transform: uppercase;
+      white-space: nowrap;
+      text-shadow: 0 0 10px rgba(245,166,35,.5);
+      animation: blink-scan 2.4s ease-in-out infinite;
+    }
+    @keyframes blink-scan {
+      0%,100% { opacity: 1; }
+      50%      { opacity: .45; }
+    }
+
+    /* ── FOOTER TEXT ── */
+    .foot {
+      margin-top: 20px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: .68rem;
+      letter-spacing: .14em;
+      color: var(--text);
+      opacity: .4;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    /* ── PRINT ── */
+    @media print {
+      body {
+        background: #fff;
+        color: #000;
+      }
+      body::before, body::after { display: none; }
+      .tape { display: none; }
+
+      .qr-card {
+        border: 2px solid #000;
+        box-shadow: none;
+        background: #fff;
+        color: #000;
+        padding: 32px 40px 28px;
+      }
+      .qr-card::before, .qr-card::after { border-color: #000; }
+      .qr-frame { box-shadow: 0 0 0 1px #999; }
+      .qr-frame::before, .qr-frame::after { border-color: #000; box-shadow: none; }
+
+      .title-escoge {
+        color: #000;
+        text-shadow: none;
+      }
+      .title-fds, .logo-strip { color: #333; }
+      .divider-line { background: #aaa; }
+      .url-label, .scan-label, .foot { color: #333; opacity: 1; }
+      .dna { filter: none; animation: none; }
+      .scan-label { animation: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .dna, .scan-label { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="tape top"    aria-hidden="true"></div>
+  <div class="tape bottom" aria-hidden="true"></div>
+
+  <div class="qr-card">
+
+    <div class="logo-strip" aria-hidden="true">
+      <span>ESCOGE</span>
+      <span class="dot"></span>
+      <span>Isla Nublar</span>
+      <span class="dot"></span>
+      <span>2025</span>
+    </div>
+
+    <div class="dna" aria-hidden="true">🧬</div>
+
+    <p class="title-escoge">ESCOGE</p>
+    <p class="title-fds">FDS #187 &nbsp;·&nbsp; Jurassic World</p>
+
+    <div class="divider" aria-hidden="true">
+      <div class="divider-line"></div>
+      <span class="divider-icon">🦕</span>
+      <div class="divider-line"></div>
+    </div>
+
+    <!--
+      ══════════════════════════════════════════════════════
+      INSTRUCCIONES:
+      Reemplaza el parámetro "data=" con la URL real de tu
+      página, por ejemplo:
+        data=https%3A%2F%2Ftu-sitio.com%2Fcomisiones
+      Puedes codificar tu URL en: https://www.urlencoder.org
+      ══════════════════════════════════════════════════════
+    -->
+    <div class="qr-frame">
+      <img
+        id="qr-img"
+        src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&color=0a1a0a&bgcolor=ffffff&qzone=1&data=ESCOGE+FDS+%23187+%E2%80%A2+Jurassic+World"
+        alt="Código QR ESCOGE FDS #187"
+        width="220"
+        height="220"
+      />
+    </div>
+
+    <p class="url-label" id="url-display">⚡ Escanea para ingresar al parque ⚡</p>
+
+    <div class="bottom-strip" aria-hidden="true">
+      <div class="divider-line"></div>
+      <span class="scan-label">▶ Escanear</span>
+      <div class="divider-line"></div>
+    </div>
+
+    <p class="foot">Operaciones del Parque · ESCOGE · Solo Personal Autorizado</p>
+  </div>
+
+  <script>
+    // ── Swap to real URL ─────────────────────────────────
+    // 1. Set PAGE_URL to the actual URL of your comisiones page
+    // 2. Refresh qr.html — the QR will update automatically
+    const PAGE_URL = '';   // ← pega tu URL aquí entre las comillas
+
+    if (PAGE_URL) {
+      const encoded = encodeURIComponent(PAGE_URL);
+      document.getElementById('qr-img').src =
+        `https://api.qrserver.com/v1/create-qr-code/?size=220x220&color=0a1a0a&bgcolor=ffffff&qzone=1&data=${encoded}`;
+      document.getElementById('url-display').textContent = PAGE_URL;
+    }
+  </script>
+</body>
+</html>
